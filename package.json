@@ -1,5 +1,5 @@
 {
-  "name": "skeleton_service",
+  "name": "p_service",
   "version": "1.0.0",
   "description": "template for SDC services",
   "main": "service/index.js",
