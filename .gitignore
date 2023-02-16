@@ -3,3 +3,4 @@ coverage
 .env
 files
 p_service.code-workspace
+journal
