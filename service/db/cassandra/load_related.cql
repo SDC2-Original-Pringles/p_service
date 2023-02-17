@@ -8,5 +8,5 @@ CREATE TABLE IF NOT EXISTS related_by_current (
 ) WITH CLUSTERING ORDER BY (id ASC);
 
 COPY related_by_current (id, current_pid, related_pid)
-FROM '/home/blin/project-sdc/p_service/files/related.csv'
+FROM '/home/blin/project-sdc/p_service/files/raw/related.csv'
 WITH HEADER = TRUE AND NULL = '0';

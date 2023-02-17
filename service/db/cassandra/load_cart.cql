@@ -8,5 +8,5 @@
 -- );
 
 -- COPY cart (id, user_session, product_id, active)
--- FROM '/home/blin/project-sdc/p_service/files/cart.csv'
+-- FROM '/home/blin/project-sdc/p_service/files/raw/cart.csv'
 -- WITH HEADER = TRUE;

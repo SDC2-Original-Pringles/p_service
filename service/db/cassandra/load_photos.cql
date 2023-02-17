@@ -9,5 +9,5 @@ CREATE TABLE IF NOT EXISTS photos_by_style (
 ) WITH CLUSTERING ORDER BY (id ASC);
 
 COPY photos_by_style (id, style_id, url, thumbnail_url)
-FROM '/home/blin/project-sdc/p_service/files/photos.csv'
+FROM '/home/blin/project-sdc/p_service/files/clean/photos.csv'
 WITH HEADER = TRUE;

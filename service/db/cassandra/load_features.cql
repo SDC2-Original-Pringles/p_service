@@ -9,5 +9,5 @@ CREATE TABLE IF NOT EXISTS features_by_product (
 ) WITH CLUSTERING ORDER BY (id ASC);
 
 COPY features_by_product (id, product_id, feature, value)
-FROM '/home/blin/project-sdc/p_service/files/features.csv'
+FROM '/home/blin/project-sdc/p_service/files/raw/features.csv'
 WITH HEADER = TRUE AND NULL = 'null';

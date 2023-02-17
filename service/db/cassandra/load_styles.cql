@@ -11,5 +11,5 @@ CREATE TABLE IF NOT EXISTS styles_by_product (
 ) WITH CLUSTERING ORDER BY (id ASC);
 
 COPY styles_by_product (id, product_id, name, sale_price, original_price, default_style)
-FROM '/home/blin/project-sdc/p_service/files/styles.csv'
+FROM '/home/blin/project-sdc/p_service/files/raw/styles.csv'
 WITH HEADER = TRUE AND NULL = 'null' AND BOOLSTYLE = '1,0';

@@ -9,5 +9,5 @@ CREATE TABLE IF NOT EXISTS skus_by_style (
 ) WITH CLUSTERING ORDER BY (id ASC);
 
 COPY skus_by_style (id, style_id, size, quantity)
-FROM '/home/blin/project-sdc/p_service/files/skus.csv'
+FROM '/home/blin/project-sdc/p_service/files/raw/skus.csv'
 WITH HEADER = TRUE;

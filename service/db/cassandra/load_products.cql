@@ -10,5 +10,5 @@ CREATE TABLE IF NOT EXISTS products (
 );
 
 COPY products (id, name, slogan, description, category, default_price)
-FROM '/home/blin/project-sdc/p_service/files/product.csv'
+FROM '/home/blin/project-sdc/p_service/files/raw/product.csv'
 WITH HEADER = TRUE;

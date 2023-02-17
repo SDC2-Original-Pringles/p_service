@@ -16,6 +16,7 @@ module.exports = {
     ecmaVersion: 'latest',
   },
   rules: {
+    'no-underscore-dangle': 0,
     'no-console': ['warn', { allow: ['warn', 'error'] }],
     'import/extensions': ['error', { jsx: 'always' }],
     'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
@@ -27,6 +28,7 @@ module.exports = {
         'updated_at',
         'question_id',
         'answer_id',
+        'thumbnail_url',
       ],
     }],
   },
