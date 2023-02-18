@@ -6,7 +6,7 @@ module.exports = {
     if (!+page || !+count) return res.sendStatus(400);
     return model.readProductList(page, count)
       .then((results) => res.send(results))
-      .catch((err) => console.error(err));
+      .catch((err) => res.status(400).send(err));
   },
 
   getProductById(req, res) {
@@ -14,7 +14,7 @@ module.exports = {
     if (!+product_id) return res.sendStatus(400);
     return model.readProductById(product_id)
       .then((results) => res.send(results))
-      .catch((err) => console.error(err));
+      .catch((err) => res.status(400).send(err));
   },
 
   getStylesByPid(req, res) {
@@ -22,7 +22,7 @@ module.exports = {
     if (!+product_id) return res.sendStatus(400);
     return model.readStylesByPid(product_id)
       .then((results) => res.send({ product_id, results }))
-      .catch((err) => console.error(err));
+      .catch((err) => res.status(400).send(err));
   },
 
   getRelatedProducts(req, res) {
@@ -30,6 +30,6 @@ module.exports = {
     if (!+product_id) return res.sendStatus(400);
     return model.readRelatedProducts(product_id)
       .then((results) => res.send(results))
-      .catch((err) => console.error(err));
+      .catch((err) => res.status(400).send(err));
   },
 };
