@@ -18,4 +18,16 @@ module.exports = {
       .then(({ rows }) => rows)
       .catch((err) => console.error(err));
   },
+
+  readStylesByPid(product_id) {
+    return client.execute(`SELECT * FROM styles_by_product WHERE product_id=${product_id}`)
+      .then(({ rows }) => rows)
+      .catch((err) => console.error(err));
+  },
+
+  readRelatedProducts(current_pid) {
+    return client.execute(`SELECT related_pid FROM related_by_current WHERE current_pid=${current_pid}`)
+      .then(({ rows }) => rows.map((row) => row.related_pid))
+      .catch((err) => console.error(err));
+  },
 };

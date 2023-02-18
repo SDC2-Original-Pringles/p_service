@@ -29,6 +29,7 @@ module.exports = {
         'question_id',
         'answer_id',
         'thumbnail_url',
+        'current_pid',
       ],
     }],
   },
