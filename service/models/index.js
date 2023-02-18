@@ -39,6 +39,8 @@ module.exports = {
               size: skuRow.size,
             },
           }), {});
+          if (!photos.length) photos = [{ thumbnail_url: null, url: null }];
+          if (!Object.keys(skus).length) skus = { null: { quantity: null, size: null } };
           return {
             style_id: style.id,
             name: style.name,
