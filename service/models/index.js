@@ -31,8 +31,8 @@ module.exports = {
             client.execute(`SELECT * FROM photos_by_style WHERE style_id=${style.id}`),
             client.execute(`SELECT * FROM skus_by_style WHERE style_id=${style.id}`),
           ]);
-          const photos = photoRows.map(({ thumbnail_url, url }) => ({ thumbnail_url, url }));
-          const skus = skuRows.reduce((acc, skuRow) => ({
+          let photos = photoRows.map(({ thumbnail_url, url }) => ({ thumbnail_url, url }));
+          let skus = skuRows.reduce((acc, skuRow) => ({
             ...acc,
             [skuRow.id]: {
               quantity: skuRow.quantity,
