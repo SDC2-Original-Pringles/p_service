@@ -14,14 +14,44 @@ module.exports = {
   },
 
   readProductById(id) {
-    return client.execute(`SELECT * FROM products WHERE id=${id}`)
-      .then(({ rows }) => rows)
+    return Promise.all([
+      client.execute(`SELECT * FROM products WHERE id=${id}`),
+      client.execute(`SELECT * FROM features_by_product WHERE product_id=${id}`),
+    ])
+      .then(([{ rows: [product] }, { rows: features }]) => ({
+        ...product,
+        features: features.map((feature) => ({ feature: feature.feature, value: feature.value })),
+      }))
       .catch((err) => console.error(err));
   },
 
   readStylesByPid(product_id) {
     return client.execute(`SELECT * FROM styles_by_product WHERE product_id=${product_id}`)
-      .then(({ rows }) => rows)
+      .then(({ rows: styles }) => (Promise.all(
+        styles.map(async (style) => {
+          const [{ rows: photoRows }, { rows: skuRows }] = await Promise.all([
+            client.execute(`SELECT * FROM photos_by_style WHERE style_id=${style.id}`),
+            client.execute(`SELECT * FROM skus_by_style WHERE style_id=${style.id}`),
+          ]);
+          const photos = photoRows.map(({ thumbnail_url, url }) => ({ thumbnail_url, url }));
+          const skus = skuRows.reduce((acc, skuRow) => ({
+            ...acc,
+            [skuRow.id]: {
+              quantity: skuRow.quantity,
+              size: skuRow.size,
+            },
+          }), {});
+          return {
+            style_id: style.id,
+            name: style.name,
+            original_price: style.original_price,
+            sale_price: style.sale_price,
+            'default?': style.default_style,
+            photos,
+            skus,
+          };
+        }),
+      )))
       .catch((err) => console.error(err));
   },
 
