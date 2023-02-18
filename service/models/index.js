@@ -9,8 +9,7 @@ const client = new cassandra.Client({
 module.exports = {
   readProductList(page = 1, count = 5) {
     return client.execute(`SELECT * FROM products LIMIT ${page * count}`)
-      .then(({ rows }) => rows.slice((page * count) - count))
-      .catch((err) => console.error(err));
+      .then(({ rows }) => rows.slice((page * count) - count));
   },
 
   readProductById(id) {
@@ -21,8 +20,7 @@ module.exports = {
       .then(([{ rows: [product] }, { rows: features }]) => ({
         ...product,
         features: features.map((feature) => ({ feature: feature.feature, value: feature.value })),
-      }))
-      .catch((err) => console.error(err));
+      }));
   },
 
   readStylesByPid(product_id) {
@@ -51,13 +49,11 @@ module.exports = {
             skus,
           };
         }),
-      )))
-      .catch((err) => console.error(err));
+      )));
   },
 
   readRelatedProducts(current_pid) {
     return client.execute(`SELECT related_pid FROM related_by_current WHERE current_pid=${current_pid}`)
-      .then(({ rows }) => rows.map((row) => row.related_pid))
-      .catch((err) => console.error(err));
+      .then(({ rows }) => rows.map((row) => row.related_pid));
   },
 };
