@@ -1,9 +1,9 @@
 require('dotenv').config();
 const express = require('express');
 const morgan = require('morgan');
-// const router = require('./routes');
+const router = require('./routes');
 
-const { LOCAL_URL, PORT } = process.env;
+const { HOSTNAME, PORT } = process.env;
 
 const app = express();
 
@@ -11,8 +11,8 @@ app.use(morgan('dev'));
 app.use(express.json());
 
 // FILL YOUR ROUTE
-// app.use('*', router);
+app.use('/', router);
 
 app.listen(PORT);
 // eslint-disable-next-line
-console.log(`Server listening at ${LOCAL_URL}:${PORT}`);
+console.log(`Server listening at http://${HOSTNAME}:${PORT}`);
