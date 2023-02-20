@@ -10,7 +10,6 @@ module.exports = {
   },
 
   getProductById(req, res) {
-    console.log(req);
     const { product_id } = req.params;
     if (!+product_id) return res.sendStatus(400);
     return model.readProductById(product_id)
