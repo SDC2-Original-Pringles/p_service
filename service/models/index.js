@@ -9,17 +9,23 @@ const client = new cassandra.Client({
 module.exports = {
   readProductList(page = 1, count = 5) {
     return client.execute(`SELECT * FROM products LIMIT ${page * count}`)
-      .then(({ rows }) => rows.slice((page * count) - count));
+      .then(({ rows: products }) => products
+        .slice((page * count) - count)
+        .map((product) => ({
+          ...product,
+          default_price: product.default_price.toString().concat('.00'),
+        })));
   },
 
   readProductById(id) {
     return Promise.all([
       client.execute(`SELECT * FROM products WHERE id=${id}`),
-      client.execute(`SELECT * FROM features_by_product WHERE product_id=${id}`),
+      client.execute(`SELECT feature, value FROM features_by_product WHERE product_id=${id}`),
     ])
       .then(([{ rows: [product] }, { rows: features }]) => ({
         ...product,
-        features: features.map((feature) => ({ feature: feature.feature, value: feature.value })),
+        default_price: product.default_price.toString().concat('.00'),
+        features,
       }));
   },
 
@@ -27,22 +33,24 @@ module.exports = {
     return client.execute(`SELECT * FROM styles_by_product WHERE product_id=${product_id}`)
       .then(({ rows: styles }) => (Promise.all(
         styles.map(async (style) => {
-          const [{ rows: photoRows }, { rows: skuRows }] = await Promise.all([
-            client.execute(`SELECT * FROM photos_by_style WHERE style_id=${style.id}`),
+          // eslint-disable-next-line prefer-const
+          let [{ rows: photos }, { rows: skuRows }] = await Promise.all([
+            client.execute(`SELECT thumbnail_url, url FROM photos_by_style WHERE style_id=${style.id}`),
             client.execute(`SELECT * FROM skus_by_style WHERE style_id=${style.id}`),
           ]);
-          const photos = photoRows.map(({ thumbnail_url, url }) => ({ thumbnail_url, url }));
-          const skus = skuRows.reduce((acc, skuRow) => ({
+          let skus = skuRows.reduce((acc, skuRow) => ({
             ...acc,
             [skuRow.id]: {
               quantity: skuRow.quantity,
               size: skuRow.size,
             },
           }), {});
+          if (!photos.length) photos = [{ thumbnail_url: null, url: null }];
+          if (!Object.keys(skus).length) skus = { null: { quantity: null, size: null } };
           return {
             style_id: style.id,
             name: style.name,
-            original_price: style.original_price,
+            original_price: style.original_price.toString(),
             sale_price: style.sale_price,
             'default?': style.default_style,
             photos,

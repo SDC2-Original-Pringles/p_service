@@ -4,7 +4,8 @@ const csv = require('csv-parser');
 const fs = require('fs');
 
 const {
-  PHOTOS_PATH, TEST_PATH,
+  PHOTOS_PATH,
+  // TEST_PATH,
   // PRODUCT_PATH, STYLES_PATH, FEATURES_PATH, RELATED_PATH, SKUS_PATH, CART_PATH,
 } = process.env;
 
