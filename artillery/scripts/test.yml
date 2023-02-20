@@ -1,0 +1,12 @@
+config:
+  target: "http://localhost:3001"
+  phases:
+    - duration: 60
+      arrivalRate: 5
+      name: Warm up
+  productIds: "../payloads/test.csv"
+scenarios:
+  - name: "Test scenario"
+    flow:
+      - get:
+          url: "/products/{{product_id}}"

@@ -5,3 +5,4 @@ files
 p_service.code-workspace
 journal
 *.err.*
+artillery/reports
