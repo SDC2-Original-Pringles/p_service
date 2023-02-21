@@ -29,6 +29,8 @@ module.exports = {
           'original_price',
           'style_id',
           'sale_price',
+          'http_req_duration',
+          'http_req_failed',
         ],
       },
     ],
