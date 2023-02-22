@@ -4,7 +4,8 @@ module.exports = {
   getProducts(req, res) {
     const { page, count } = req.query;
     if (!+page || !+count) return res.sendStatus(400);
-    return model.readProductList(page, count)
+    return model
+      .readProductList(page, count)
       .then((results) => res.send(results))
       .catch((err) => res.status(400).send(err));
   },
@@ -12,7 +13,8 @@ module.exports = {
   getProductById(req, res) {
     const { product_id } = req.params;
     if (!+product_id) return res.sendStatus(400);
-    return model.readProductById(product_id)
+    return model
+      .readProductByIdNew(product_id)
       .then((results) => res.send(results))
       .catch((err) => res.status(400).send(err));
   },
@@ -20,7 +22,8 @@ module.exports = {
   getStylesByPid(req, res) {
     const { product_id } = req.params;
     if (!+product_id) return res.sendStatus(400);
-    return model.readStylesByPid(product_id)
+    return model
+      .readStylesByPid(product_id)
       .then((results) => res.send({ product_id, results }))
       .catch((err) => res.status(400).send(err));
   },
@@ -28,7 +31,8 @@ module.exports = {
   getRelatedProducts(req, res) {
     const { product_id } = req.params;
     if (!+product_id) return res.sendStatus(400);
-    return model.readRelatedProducts(product_id)
+    return model
+      .readRelatedProducts(product_id)
       .then((results) => res.send(results))
       .catch((err) => res.status(400).send(err));
   },
