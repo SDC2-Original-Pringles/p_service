@@ -1,9 +1,6 @@
 node_modules
-coverage
 .env
-files
-p_service.code-workspace
+data/csv/*
 journal
 *.err.*
-artillery/reports
-k6/reports
+ignore
