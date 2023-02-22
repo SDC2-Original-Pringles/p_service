@@ -1,6 +1,6 @@
 /* eslint-disable no-await-in-loop, func-names, no-loop-func, no-console */
 const path = require('path');
-require('dotenv').config({ path: path.join(__dirname, '../../../.env') });
+require('dotenv').config({ path: path.join(__dirname, '../.env') });
 const { Client } = require('cassandra-driver');
 
 const client = new Client({

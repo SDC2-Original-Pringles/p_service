@@ -1,6 +1,6 @@
-const cassandra = require('cassandra-driver');
+const { Client } = require('cassandra-driver');
 
-const client = new cassandra.Client({
+const client = new Client({
   contactPoints: [process.env.HOSTNAME],
   localDataCenter: process.env.DB_DATACENTER,
   keyspace: process.env.DB_KEYSPACE,

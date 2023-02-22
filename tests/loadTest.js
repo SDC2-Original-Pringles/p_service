@@ -18,16 +18,18 @@ const baseChecks = {
 
 export const options = {
   stages: [
-    { duration: '1m', target: 300 },
-    { duration: '1m', target: 300 },
-    { duration: '1m', target: 400 },
-    { duration: '1m', target: 400 },
+    { duration: '10s', target: 500 },
     { duration: '1m', target: 500 },
-    { duration: '1m', target: 500 },
+    { duration: '10s', target: 600 },
     { duration: '1m', target: 600 },
-    { duration: '1m', target: 600 },
+    { duration: '10s', target: 700 },
     { duration: '1m', target: 700 },
-    { duration: '1m', target: 700 },
+    { duration: '10s', target: 800 },
+    { duration: '1m', target: 800 },
+    { duration: '10s', target: 900 },
+    { duration: '1m', target: 900 },
+    { duration: '10s', target: 1000 },
+    { duration: '1m', target: 1000 },
   ],
   thresholds: {
     http_req_duration: [{ threshold: 'p(95) < 150', abortOnFail: true }],

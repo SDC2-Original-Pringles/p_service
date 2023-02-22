@@ -2,9 +2,9 @@
   "name": "p_service",
   "version": "1.0.0",
   "description": "template for SDC services",
-  "main": "service/index.js",
+  "main": "app.js",
   "scripts": {
-    "start": "npx nodemon --watch service service/index.js",
+    "start": "npx nodemon --watch ./ app.js",
     "test": "jest"
   },
   "contributors": [
