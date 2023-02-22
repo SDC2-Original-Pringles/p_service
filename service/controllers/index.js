@@ -14,7 +14,7 @@ module.exports = {
     const { product_id } = req.params;
     if (!+product_id) return res.sendStatus(400);
     return model
-      .readProductById(product_id)
+      .readProductByIdNew(product_id)
       .then((results) => res.send(results))
       .catch((err) => res.status(400).send(err));
   },

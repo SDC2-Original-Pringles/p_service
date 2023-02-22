@@ -12,22 +12,14 @@ const baseChecks = {
 
 // export function handleSummary(data) {
 //   return {
-//     '../reports/summary.html': htmlReport(data),
+//     '../reports/summaryNEW.html': htmlReport(data),
 //   };
 // }
 
 export const options = {
   stages: [
-    { duration: '1m', target: 300 },
-    { duration: '1m', target: 300 },
-    { duration: '1m', target: 400 },
-    { duration: '1m', target: 400 },
-    { duration: '1m', target: 500 },
-    { duration: '1m', target: 500 },
-    { duration: '1m', target: 600 },
-    { duration: '1m', target: 600 },
-    { duration: '1m', target: 700 },
-    { duration: '1m', target: 700 },
+    { duration: '10s', target: 600 },
+    { duration: '10m', target: 600 },
   ],
   thresholds: {
     http_req_duration: [{ threshold: 'p(95) < 150', abortOnFail: true }],
@@ -45,7 +37,9 @@ export default () => {
     currentResponse = http.get(`${BASE_URL}/${currentPid}/related`);
     check(currentResponse, baseChecks);
     const relatedArr = JSON.parse(currentResponse.body);
-    currentPid = relatedArr[randomInt(0, relatedArr.length - 1)];
+    currentPid = !relatedArr.length
+      ? 1000011
+      : relatedArr[randomInt(0, relatedArr.length - 1)];
     sleep(randomInt(1, 3));
   }
 };
