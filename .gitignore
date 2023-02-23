@@ -4,3 +4,13 @@ data/csv/*
 journal
 *.err.*
 ignore
+
+tests
+.eslintrc.js
+jest.config.js
+prettier.config.js
+controllers
+models
+app.js
+README.md
+routes.js
