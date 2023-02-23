@@ -4,3 +4,10 @@ data/csv/*
 journal
 *.err.*
 ignore
+
+config
+data
+tests
+.eslintrc.js
+jest.config.js
+prettier.config.js
