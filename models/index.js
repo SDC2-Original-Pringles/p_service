@@ -102,7 +102,7 @@ module.exports = {
             return {
               style_id: style.id,
               name: style.name,
-              original_price: style.original_price.toString(),
+              original_price: style.original_price.toString().concat('.00'),
               sale_price: style.sale_price,
               "default?": style.default_style,
               photos,
@@ -110,6 +110,24 @@ module.exports = {
             };
           }),
         ),
+      );
+  },
+
+  readStylesByPidNew(product_id) {
+    return client
+      .execute(
+        `SELECT * FROM styles_with_photos_skus WHERE product_id=${product_id}`
+      )
+      .then(({ rows: styles }) =>
+        styles.map((style) => ({
+          style_id: style.id,
+          name: style.name,
+          original_price: style.original_price.toString().concat('.00'),
+          sale_price: style.sale_price,
+          'default?': style.default_style,
+          photos: style.photos,
+          skus: style.skus,
+        }))
       );
   },
 
