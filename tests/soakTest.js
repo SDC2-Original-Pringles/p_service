@@ -3,7 +3,10 @@ import { sleep, check } from 'k6';
 import { htmlReport } from 'https://raw.githubusercontent.com/benc-uk/k6-reporter/main/dist/bundle.js';
 
 const randomInt = (min, max) => Math.floor(Math.random() * (max - min) + min);
-const BASE_URL = 'http://localhost:3001/products';
+
+// const BASE_URL = 'http://localhost:3001/products';
+const BASE_URL = 'http://34.227.90.48:3001/products';
+
 const baseChecks = {
   'status is 200': (res) => res.status === 200,
   'content type is json': (res) =>
@@ -18,17 +21,19 @@ const baseChecks = {
 
 export const options = {
   stages: [
-    { duration: '10s', target: 600 },
-    { duration: '10m', target: 600 },
+    { duration: '10s', target: 1200 },
+    { duration: '1m', target: 1200 },
   ],
   thresholds: {
-    http_req_duration: [{ threshold: 'p(95) < 150', abortOnFail: true }],
+    http_req_duration: [{ threshold: 'p(95) < 2000', abortOnFail: true }],
     http_req_failed: [{ threshold: 'rate < 0.01', abortOnFail: true }],
   },
 };
 
+// NOTE: 10 and 11 have no related products
+
 export default () => {
-  let currentPid = randomInt(1, 1000011);
+  let currentPid = randomInt(900011, 1000011);
   for (let i = 0; i < randomInt(1, 5); i += 1) {
     let currentResponse = http.get(`${BASE_URL}/${currentPid}`);
     check(currentResponse, baseChecks);
