@@ -1,10 +1,34 @@
 const { Client } = require('cassandra-driver');
 
-const client = new Client({
-  contactPoints: [process.env.HOSTNAME],
-  localDataCenter: process.env.DB_DATACENTER,
-  keyspace: process.env.DB_KEYSPACE,
-});
+const client = new Client(
+  process.env.ENVIRONMENT === 'local'
+    ? {
+        contactPoints: [process.env.HOSTNAME],
+        localDataCenter: process.env.DB_DATACENTER,
+        keyspace: process.env.DB_KEYSPACE,
+      }
+    : {
+        cloud: {
+          secureConnectBundle: process.env.BUNDLE_PATH,
+        },
+        credentials: {
+          username: process.env.CLIENT_ID,
+          password: process.env.CLIENT_SECRET,
+        },
+        keyspace: process.env.DB_KEYSPACE,
+      }
+);
+
+client
+  .connect()
+  .then(() =>
+    client.connected
+      ? console.log(
+          `Connected to ${client.options.localDataCenter}, using ${client.keyspace}.`
+        )
+      : console.log(`ERROR: Not connected!`)
+  )
+  .catch((err) => console.error(err));
 
 module.exports = {
   readProductList(page = 1, count = 5) {
