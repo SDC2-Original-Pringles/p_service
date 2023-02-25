@@ -11,3 +11,5 @@ tests
 .eslintrc.js
 jest.config.js
 prettier.config.js
+cqlshrc
+schema.cql
