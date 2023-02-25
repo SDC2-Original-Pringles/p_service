@@ -4,8 +4,7 @@
   "description": "template for SDC services",
   "main": "app.js",
   "scripts": {
-    "start": "npx nodemon --watch ./ app.js",
-    "test": "jest"
+    "start": "npx nodemon --watch ./ app.js"
   },
   "contributors": [
     "Arpan Shrestha",
