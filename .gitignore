@@ -13,3 +13,4 @@ jest.config.js
 prettier.config.js
 cqlshrc
 schema.cql
+README.md
