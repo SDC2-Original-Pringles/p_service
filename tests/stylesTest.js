@@ -21,7 +21,7 @@ export const options = {
 
 export default () => {
   const currentPid = randomInt(1, 1000011);
-  const currentResponse = http.get(`${BASE_URL}/${currentPid}`);
+  const currentResponse = http.get(`${BASE_URL}/${currentPid}/styles`);
   check(currentResponse, baseChecks);
   sleep(1);
 };

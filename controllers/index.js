@@ -23,7 +23,7 @@ module.exports = {
     const { product_id } = req.params;
     if (!+product_id) return res.sendStatus(400);
     return model
-      .readStylesByPid(product_id)
+      .readStylesByPidNew(product_id)
       .then((results) => res.send({ product_id, results }))
       .catch((err) => res.status(400).send(err));
   },
